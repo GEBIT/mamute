@@ -22,6 +22,7 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
 public class QuestionRssEntryFactory {
 
 	private String gravatarUrl;
+	private String roboHashUrl;
 	private String home;
 	
 	@Deprecated
@@ -33,13 +34,14 @@ public class QuestionRssEntryFactory {
 		this.home = env.get("host") + "/";
 		home = home.endsWith("/") ? home : home + "/";
 		this.gravatarUrl = env.get("gravatar.avatar.url");
+		this.roboHashUrl = env.get("robohash.url");
 	}
 
 	public void writeEntry(RssContent rssContent, OutputStream output) {
 		
 		User author = rssContent.getAuthor();
 		RssImageEntry imageEntry = new RssImageEntryBuilder()
-			.withUrl(author.getSmallPhoto(gravatarUrl)).build();
+			.withUrl(author.getSmallPhoto(gravatarUrl, roboHashUrl)).build();
 		
 		RssEntry entry = new RssEntryBuilder()
 				.withAuthor(author.getName())
