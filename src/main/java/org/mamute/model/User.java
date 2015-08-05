@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.inject.Vetoed;
+import javax.inject.Inject;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -186,16 +187,16 @@ public class User implements Identifiable {
 		return this.id;
 	}
 	
-	public String getSmallPhoto(String gravatarUrl) {
-	    return getPhoto(32, 32, gravatarUrl);
+	public String getSmallPhoto(String gravatarUrl, String roboHashUrl) {
+	    return getPhoto(32, 32, gravatarUrl, roboHashUrl);
 	}
 	
-	public String getMediumPhoto(String gravatarUrl) {
-		return getPhoto(48, 48, gravatarUrl);
+	public String getMediumPhoto(String gravatarUrl, String roboHashUrl) {
+		return getPhoto(48, 48, gravatarUrl, roboHashUrl);
 	}
 	
-	public String getBigPhoto(String gravatarUrl) {
-		return getPhoto(128, 128, gravatarUrl);
+	public String getBigPhoto(String gravatarUrl, String roboHashUrl) {
+		return getPhoto(128, 128, gravatarUrl, roboHashUrl);
 	}
 
 	public String getName() {
@@ -247,14 +248,14 @@ public class User implements Identifiable {
 		throw new IllegalStateException("this guy dont have a brutal login method!");
 	}
 	
-	public String getPhoto(Integer width, Integer height, String gravatarUrl) {
+	public String getPhoto(Integer width, Integer height, String gravatarUrl, String roboHashUrl) {
 		if (this.avatarImage != null) {
 			return localAvatarPhoto(width, height);
 		}
 		String size = width + "x" + height;
 		if (photoUri == null) {
 			String digest = Digester.md5(email);
-			String robohash = "https://robohash.org/size_"+size+"/set_set1/bgset_any/"+digest+".png";
+			String robohash = roboHashUrl + "/size_"+size+"/set_set1/bgset_any/"+digest+".png";
 			String gravatar = gravatarUrl + "/avatar/" + digest + ".png?r=PG&size=" + size;
 			try {
 				return gravatar + "&d=" + java.net.URLEncoder.encode(robohash, "UTF-8");
