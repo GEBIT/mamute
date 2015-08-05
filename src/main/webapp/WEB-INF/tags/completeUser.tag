@@ -7,7 +7,7 @@
 <%@attribute name="edited" required="false" %>
 <div class="complete-user">
 	<jsp:doBody/>
-	<a href="${linkTo[UserProfileController].showProfile(user,user.sluggedName)}"><img border="0" class="user-image" src="${userMediumPhoto ? user.getMediumPhoto(env.get('gravatar.avatar.url')) : user.getSmallPhoto(env.get('gravatar.avatar.url'))}"/></a>
+	<a href="${linkTo[UserProfileController].showProfile(user,user.sluggedName)}"><img border="0" class="user-image" src="${userMediumPhoto ? user.getMediumPhoto(env.get('gravatar.avatar.url'), env.get('robohash.url')) : user.getSmallPhoto(env.get('gravatar.avatar.url'), env.get('robohash.url'))}"/></a>
 	<div class="user-info" 
 		<c:if test="${microdata}">
 			itemscope itemtype="http://schema.org/Person" itemprop="${edited ? 'editor' : 'author'}"

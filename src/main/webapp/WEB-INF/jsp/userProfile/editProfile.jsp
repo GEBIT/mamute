@@ -10,7 +10,7 @@
 </div>
 
 <div class="image-and-information">
-	<img class="profile-image" src="${user.getBigPhoto(env.get('gravatar.avatar.url'))}"/>
+	<img class="profile-image" src="${user.getBigPhoto(env.get('gravatar.avatar.url'), env.get('robohash.url'))}"/>
     <c:if test="${!env.supports('feature.inhouse.upload')}">
 	    <a href="${t['gravatar.url']}">${t['user_profile.edit.photo']}</a>
     </c:if>
