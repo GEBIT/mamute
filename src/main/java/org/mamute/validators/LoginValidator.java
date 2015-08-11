@@ -7,7 +7,7 @@ import org.mamute.factory.MessageFactory;
 import br.com.caelum.vraptor.validator.Validator;
 
 public class LoginValidator {
-	public static final int PASSWORD_MIN_LENGTH = 6;
+	public static final int PASSWORD_MIN_LENGTH = 5;
 	public static final int PASSWORD_MAX_LENGTH = 100;
 	
 	private Validator validator;
