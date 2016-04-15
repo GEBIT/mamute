@@ -144,12 +144,13 @@ public class LDAPApi {
 			ldap.verifyCredentials(cn, password);
 			createUserIfNeeded(ldap, cn);
 
+			logger.info("Successful LDAP login: " + username);
 			return true;
 		} catch (LdapAuthenticationException e) {
-			logger.debug("LDAP auth attempt failed");
+			logger.info("LDAP auth attempt failed");
 			return false;
 		} catch (LdapException | IOException e) {
-			logger.debug("LDAP connection error", e);
+			logger.warn("LDAP connection error", e);
 			throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
 		}
 	}
@@ -193,7 +194,7 @@ public class LDAPApi {
 			Entry ldapUser = ldap.getUser(userCn(username));
 			return ldap.getAttribute(ldapUser, emailAttr);
 		} catch (LdapException | IOException e) {
-			logger.debug("LDAP connection error", e);
+			logger.warn("LDAP connection error", e);
 			throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
 		}
 	}
@@ -206,7 +207,7 @@ public class LDAPApi {
 					return user.getDn().getName();
 				}
 			} catch (LdapException | IOException e) {
-				logger.debug("LDAP connection error", e);
+				logger.warn("LDAP connection error", e);
 				throw new AuthenticationException(LDAP_AUTH, "LDAP connection error", e);
 			}
 		}
