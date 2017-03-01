@@ -64,7 +64,6 @@
 
 <c:if test="${not env.supports('feature.inhouse.upload')}">
 	<!-- build:js /js/filepicker.js -->
-		<script src="/assets/js/deps/filepicker.js"></script>
 		<script src="/assets/js/deps/feather.js"></script>
 	<!-- endbuild -->
 </c:if>
