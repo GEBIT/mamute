@@ -253,7 +253,7 @@ public class User implements Identifiable {
 			return localAvatarPhoto(width, height);
 		}
 		String size = width + "x" + height;
-		if (photoUri == null) {
+		if (photoUri == null && email != null) {
 			String digest = Digester.md5(email);
 			String robohash = roboHashUrl + "/size_"+size+"/set_set1/bgset_any/"+digest+".png";
 			String gravatar = gravatarUrl + "/avatar/" + digest + ".png?r=PG&size=" + size;
@@ -262,10 +262,14 @@ public class User implements Identifiable {
 			} catch (UnsupportedEncodingException e) {
 				return gravatar;
 			}
-		} else if (photoUri.contains("googleusercontent")) {
-            return photoUri.replaceAll("sz=(\\d+)", "sz="+width);
-        } else {
-			return photoUri + "?width=" + width + "&height=" + height;
+		} else if (photoUri != null) {
+			if (photoUri.contains("googleusercontent")) {
+				return photoUri.replaceAll("sz=(\\d+)", "sz="+width);
+			} else {
+				return photoUri + "?width=" + width + "&height=" + height;
+			}
+		} else {
+			return null;
 		}
 	}
 
