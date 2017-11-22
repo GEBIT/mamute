@@ -59,6 +59,7 @@ public class LDAPApi {
 	public static final String LDAP_MODERATOR_GROUP = "ldap.moderatorGroup";
 	public static final String LDAP_LOOKUP_ALL_ATTR = "ldap.lookupAllAttr";
 	public static final String LDAP_SSO = "ldap.sso";
+	public static final String LDAP_SSO_REMOTE_USER_ATTRIBUTE = "ldap.sso.remoteuser.attribute";
 	public static final String PLACHOLDER_PASSWORD = "ldap-password-ignore-me";
 	public static final String LDAP_USE_SSL = "ldap.useSSL";
 	public static final String LDAP_USE_TLS = "ldap.useTLS";

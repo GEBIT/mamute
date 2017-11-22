@@ -15,6 +15,7 @@ import org.mamute.validators.UrlValidator;
 
 import br.com.caelum.brutauth.auth.annotations.Public;
 import br.com.caelum.brutauth.auth.annotations.CustomBrutauthRules;
+import br.com.caelum.vraptor.environment.Environment;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
@@ -31,6 +32,7 @@ public class AuthController extends BaseController {
 	@Inject	private UrlValidator urlValidator;
 	@Inject	private LoginValidator validator;
 	@Inject private LoggedUser loggedUser;
+	@Inject private Environment environment;
 
 	@Public
 	@Get
@@ -71,7 +73,12 @@ public class AuthController extends BaseController {
 	@Get
 	public void logout() {
 		auth.signout();
-		redirectTo(ListController.class).home(null);
+		String logoutUrl = environment.get("logout.url");
+		if (logoutUrl != null && logoutUrl.length() > 0) {
+			redirectToRightUrl(logoutUrl);
+		} else {
+			redirectTo(ListController.class).home(null);
+		}
 	}
 
 	private void redirectToRightUrl(String redirectUrl) {
